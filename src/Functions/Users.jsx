@@ -1,7 +1,5 @@
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const list = async() => {
     return await axios.get(apiUrl + '/users')
