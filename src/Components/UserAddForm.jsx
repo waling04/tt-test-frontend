@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { RiSave3Fill } from "react-icons/ri";
 import { create } from "../Functions/Users";
 
 const UserAddForm = () => {
-  const params = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({
     number: "",
@@ -15,8 +14,6 @@ const UserAddForm = () => {
     email: "",
   });
 
-  const [validationErrors, setValidationErrors] = useState([]);
-
   const handleChange = (e) => {
     setData({
       ...data,
@@ -25,27 +22,36 @@ const UserAddForm = () => {
   };
 
   const handleSubmit = async () => {
-    create(data)
-      .then((res) => {
-        // console.log(res);
-        navigate("/");
-      })
-      .catch((err) => console.log("create user >>", err));
-  };
+    // check input
+    if (
+      data.number.trim() === "" ||
+      data.firstName.trim() === "" ||
+      data.lastName.trim() === "" ||
+      data.tel.trim() === "" ||
+      data.email.trim() === ""
+    ) {
+      alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+      return;
+    }
+      create(data)
+        .then((res) => {
+          navigate('/')
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 400) {
+            alert(err.response.data);
+          } else {
+            console.error("create user >>", err);
+          }
+        });
+    }
 
   return (
     <section className="flex flex-col justify-center items-center">
       <div className="mt-12 mb-6 bg-green-800 px-6 p-1 text-xl text-white border rounded-lg">
-        เจ้าของ
+        Add User
       </div>
       <form className="w-[90%] xl:w-[70%] bg-gray-200 border rounded-lg border-green-800 p-4">
-        {validationErrors &&
-          validationErrors.map((error) => (
-            <div key={error.param} className="text-red-500 font-bold">
-              {error.msg}
-            </div>
-          ))}
-
         <div>
           <label
             htmlFor="number"
@@ -56,11 +62,13 @@ const UserAddForm = () => {
           <input
             type="text"
             name="number"
-            className="border border-black text-lg mr-2 pl-1 "
+            className="border border-black text-lg pl-1 w-32 mr-2"
             placeholder="HN Number"
             onChange={(e) => handleChange(e)}
+            maxLength="6"
             required
           />
+          <span className="text-red-600 mr-12">*</span>
 
           <label
             htmlFor="name"
@@ -76,6 +84,7 @@ const UserAddForm = () => {
             onChange={(e) => handleChange(e)}
             required
           />
+          <span className="text-red-600 mr-3">*</span>
 
           <input
             type="text"
@@ -85,6 +94,7 @@ const UserAddForm = () => {
             onChange={(e) => handleChange(e)}
             required
           />
+          <span className="text-red-600 mr-3">*</span>
         </div>
 
         <br />
@@ -101,8 +111,10 @@ const UserAddForm = () => {
             className="border border-black text-lg mr-2 pl-1"
             placeholder="เบอร์ติดต่อ"
             onChange={(e) => handleChange(e)}
+            maxLength="10"
             required
           />
+          <span className="text-red-600 mr-3">*</span>
 
           <label
             htmlFor="email"
@@ -118,6 +130,7 @@ const UserAddForm = () => {
             onChange={(e) => handleChange(e)}
             required
           />
+          <span className="text-red-600 mr-3">*</span>
         </div>
 
         <br />
@@ -130,14 +143,12 @@ const UserAddForm = () => {
           <IoArrowBackCircle />
           <button>cancel</button>
         </Link>
-        <button className="" onClick={handleSubmit}>
-          <Link
-            to={"/"}
-            className="bg-gray-300 border rounded-lg p-2 m-2 flex justify-center items-center hover:bg-black hover:text-white"
-          >
-            <RiSave3Fill />
-            Add
-          </Link>
+        <button
+          className="bg-gray-300 border rounded-lg p-2 m-2 flex justify-center items-center hover:bg-black hover:text-white"
+          onClick={handleSubmit}
+        >
+          <RiSave3Fill />
+          Add
         </button>
       </div>
     </section>

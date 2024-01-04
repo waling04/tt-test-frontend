@@ -36,13 +36,27 @@ const UserEdit = () => {
   const handleSave = async (e) => {
     // do not refresh
     e.preventDefault();
-    // console.log(data);
-    update(params.id, data)
+    // check input
+  if (
+    data.firstName.trim() === "" ||
+    data.lastName.trim() === "" ||
+    data.tel.trim() === "" ||
+    data.email.trim() === ""
+  ) {
+    alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+    return;
+  }
+    update(params.id,data)
       .then((res) => {
-        // console.log(res);
-        navigate("/");
+        navigate('/')
       })
-      .catch((err) => console.log("update user >>", err));
+      .catch((err) => {
+        if (err.response && err.response.status === 400) {
+          alert(err.response.data);
+        } else {
+          console.error("create user >>", err);
+        }
+      })
   };
 
   const handleRemove = async () => {
@@ -61,7 +75,7 @@ const UserEdit = () => {
   return (
     <section className="flex flex-col justify-center items-center">
       <div className="mt-12 mb-6 bg-green-800 px-6 p-1 text-xl text-white border rounded-lg">
-        เจ้าของ
+        Edit User
       </div>
       <form className="w-[90%] xl:w-[70%] bg-gray-200 border rounded-lg border-green-800 p-4">
         <div>
@@ -74,7 +88,7 @@ const UserEdit = () => {
           <input
             type="text"
             name="number"
-            className="text-lg bg-gray-200"
+            className="text-lg bg-gray-200 "
             placeholder="HN Number"
             onChange={(e) => handleChange(e)}
             value={data.number}
@@ -96,6 +110,8 @@ const UserEdit = () => {
             value={data.firstName}
             required
           />
+          <span className="text-red-600 mr-3">*</span>
+
           <input
             type="text"
             name="lastName"
@@ -105,6 +121,7 @@ const UserEdit = () => {
             value={data.lastName}
             required
           />
+          <span className="text-red-600">*</span>
         </div>
 
         <br />
@@ -123,7 +140,9 @@ const UserEdit = () => {
             onChange={(e) => handleChange(e)}
             value={data.tel}
             required
+            maxLength="10"
           />
+          <span className="text-red-600 mr-3">*</span>
 
           <label
             htmlFor="email"
@@ -140,6 +159,7 @@ const UserEdit = () => {
             value={data.email}
             required
           />
+          <span className="text-red-600">*</span>
         </div>
 
         <br />
