@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 // import functions
 import { read, update, remove } from "../Functions/Users";
-import { IoArrowBackCircle } from "react-icons/io5";
+import { IoArrowBackCircle, IoAddCircle } from "react-icons/io5";
 import { RiSave3Fill, RiDeleteBin5Fill } from "react-icons/ri";
 
 const UserEdit = () => {
@@ -179,7 +179,7 @@ const UserEdit = () => {
           to={"/addUser"}
           className="bg-gray-300 border rounded-lg p-2 m-2 flex justify-center items-center hover:bg-black hover:text-white"
         >
-          <RiSave3Fill /> <button>Add</button>
+          <IoAddCircle /> <button>Add</button>
         </Link>
 
         <button

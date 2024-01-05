@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IoArrowBackCircle } from "react-icons/io5";
-import { RiSave3Fill } from "react-icons/ri";
+import { IoArrowBackCircle, IoAddCircle } from "react-icons/io5";
 import { create } from "../Functions/Users";
 
 const UserAddForm = () => {
@@ -147,7 +146,7 @@ const UserAddForm = () => {
           className="bg-gray-300 border rounded-lg p-2 m-2 flex justify-center items-center hover:bg-black hover:text-white"
           onClick={handleSubmit}
         >
-          <RiSave3Fill />
+          <IoAddCircle />
           Add
         </button>
       </div>
