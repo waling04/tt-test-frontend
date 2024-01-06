@@ -44,8 +44,10 @@ const DataTable = () => {
   const getRowId = (row) => row._id;
 
   return (
-    <main className="flex flex-col justify-center items-center mt-12">
-      <div style={{ height: 500, width: "65%" }}>
+    <main className="mt-20">
+      <h1 className="text-center w-[45%] text-xl">ค้นหาเจ้าของ</h1>
+      <div className="flex flex-col justify-center items-center">
+      <div style={{ height: 500, width: "65%" }} className="border-t-8 border-green-700 pt-4">
         <DataGrid
           rows={data}
           columns={columns}
@@ -54,6 +56,7 @@ const DataTable = () => {
           autoPageSize={false}
           getRowId={getRowId}
         />
+      </div>
       </div>
     </main>
   );

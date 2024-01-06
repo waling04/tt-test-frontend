@@ -46,11 +46,12 @@ const UserAddForm = () => {
     }
 
   return (
-    <section className="flex flex-col justify-center items-center">
-      <div className="mt-12 mb-6 bg-green-800 px-6 p-1 text-xl text-white border rounded-lg">
-        Add User
+    <section className="mt-20">
+      <div className="text-center w-[40%] text-xl mb-2">
+        เพิ่ม เจ้าของ
       </div>
-      <form className="w-[90%] xl:w-[70%] bg-gray-200 border rounded-lg border-green-800 p-4">
+      <div className="flex flex-col justify-center items-center">
+      <form className="w-[90%] xl:w-[70%] bg-gray-200 border-t-4 border-b-4 border-green-800 p-4">
         <div>
           <label
             htmlFor="number"
@@ -149,6 +150,7 @@ const UserAddForm = () => {
           <IoAddCircle />
           Add
         </button>
+      </div>
       </div>
     </section>
   );
