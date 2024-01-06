@@ -8,7 +8,6 @@ function App() {
   return (
     <>
     <BrowserRouter>
-    <h1 className='text-2xl text-center mt-12'>T.T.Software Solution Assignment</h1>
       <Routes>
         <Route path='/' element={<DataTable/>}/>
         <Route path='/edit/:id' element={<UserEditForm/>}/>
